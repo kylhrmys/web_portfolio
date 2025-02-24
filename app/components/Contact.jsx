@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
   const controls = useAnimation();
@@ -21,6 +23,8 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  toast.configure();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -38,17 +42,17 @@ const Contact = () => {
     });
 
     const result = await res.json();
-    alert(result.message);
-  };
 
-  const handleScroll = () => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-      setIsInView(isVisible);
-      if (isVisible) {
-        controls.start({ opacity: 1, y: 0, transition: { duration: 0.5 } });
-      }
+    if (result.success) {
+      toast.success("✅ Message sent successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } else {
+      toast.error(`❌ Error: ${result.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

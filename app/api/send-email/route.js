@@ -4,17 +4,21 @@ export async function POST(req) {
   try {
     const { name, email, message } = await req.json();
 
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      throw new Error("Missing email credentials.");
+    }
+
     let transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER, // Your Gmail address
-        pass: process.env.EMAIL_PASS, // App Password from Google
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
     let mailOptions = {
-      from: `"${name}" <${email}>`, // Sender's email
-      to: "kaylteves@createves.dev", // Your email to receive inquiries
+      from: `"${name}" <${email}>`,
+      to: "kaylteves@createves.dev",
       subject: `New Inquiry from ${name}`,
       html: `<p><strong>Name:</strong> ${name}</p>
              <p><strong>Email:</strong> ${email}</p>
