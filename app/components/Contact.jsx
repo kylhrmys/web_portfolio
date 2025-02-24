@@ -77,11 +77,7 @@ const Contact = () => {
             <div className="text-white quicksand-regular text-center lg:text-start md:flex items-center">
               +63 915 812 4837 | +63 968 350 3518
             </div>
-            <div className="flex justify-center lg:justify-start">
-              <button className="mt-3 px-10 py-3 bg-white text-black quicksand-bold rounded-md">
-                DOWNLOAD RESUME
-              </button>
-            </div>
+            <div className="flex justify-center lg:justify-start"></div>
           </div>
           <motion.div
             ref={ref}
