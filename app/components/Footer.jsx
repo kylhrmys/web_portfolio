@@ -18,11 +18,13 @@ const Footer = () => {
             />
           </div>
           <div className="flex flex-col justify-center items-center lg:justify-start lg:items-start gap-3 lg:translate-y-12 lg:order-1">
-            <Image
-              src={headerData.arrowImage}
-              alt="Arrow Down"
-              className=" h-36 w-3 rotate-180 lg:hidden block -translate-y-10"
-            />
+            <a href="#nav">
+              <Image
+                src={headerData.arrowImage}
+                alt="Arrow Down"
+                className=" h-36 w-3 rotate-180 lg:hidden block -translate-y-10"
+              />
+            </a>
             <p className="poppins-bold text-1xl text-center lg:text-start">
               FOLLOW YOUR DREAMS
             </p>

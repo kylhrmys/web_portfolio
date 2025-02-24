@@ -73,7 +73,9 @@ const About = () => {
           variants={textAnimation}
         >
           <h1 className="text-4xl lg:text-6xl poppins-bold mb-3">ME</h1>
-          <p className="quicksand-regular">{aboutData.description}</p>
+          <p className="quicksand-regular leading-relaxed">
+            {aboutData.description}
+          </p>
 
           {/* Icons Section */}
           <div className="flex justify-center grid grid-cols-3 items-center mt-3">

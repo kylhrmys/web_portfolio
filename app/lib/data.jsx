@@ -163,28 +163,28 @@ export const projectData = [
   {
     title: "Sari-Sari Store",
     description:
-      "A simple yet robust e-commerce template utilizing NEXTJS for the frontend and Django for backend services, facilitating efficient database management and user interaction.",
+      "A simple yet robust e-commerce template utilizing NEXTJS for the frontend and FreeAPI for backend services, for frontend playgoard practices.",
     techStack: ["DJANGO", "REACTJS"],
     imageSrc: SSS,
   },
   {
     title: "Asetrak",
     description:
-      "A comprehensive logistic web application designed for effectively managing records and optimizing the inventory of assets, enhancing operational efficiency across the board.",
+      "A comprehensive logistic web application designed for effectively managing and optimizing the inventory of assets, enhancing efficiency across the board.",
     techStack: ["DJANGO", "REACTJS"],
     imageSrc: Asetrak,
   },
   {
     title: "ERP Consultancy Website",
     description:
-      "A professional and user-friendly website developed specifically for the esteemed company providing ERP consultancy services to businesses looking for tailored solutions.",
+      "A professional and user-friendly website developed specifically for the esteemed company providing ERP consultancy services to businesses looking for solutions.",
     techStack: ["DJANGO", "REACTJS"],
     imageSrc: ERP,
   },
   {
     title: "E-commerce APIs",
     description:
-      "Rest APIs for e-commerce, it covers CRUD methods, adding to cart, wishlist, products, category, user profile. Tested and working for postman, used for tailored solutions for ecommerce sites.",
+      "Rest APIs for e-commerce, it covers, adding to cart, wishlist, products, category, user profile. Tested and working for postman, used for tailored solutions for ecommerce sites.",
     techStack: ["DJANGO"],
     imageSrc: EcomServer,
   },

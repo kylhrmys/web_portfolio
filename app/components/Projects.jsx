@@ -24,15 +24,18 @@ const ProjectSlider = () => {
   const controls = useAnimation();
   const ref = useRef(null);
   const [isInView, setIsInView] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false); // Track if animation has occurred
 
   // Check if the component is in view
   const handleScroll = () => {
-    if (ref.current) {
+    if (ref.current && !hasAnimated) {
       const rect = ref.current.getBoundingClientRect();
       const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-      setIsInView(isVisible);
+
       if (isVisible) {
-        controls.start({ opacity: 1, y: 0 }); // Trigger animation when in view
+        setIsInView(true);
+        setHasAnimated(true); // Mark animation as triggered
+        controls.start({ opacity: 1, y: 0 });
       }
     }
   };
@@ -63,7 +66,7 @@ const ProjectSlider = () => {
         breakpoint: 1080,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
           dots: true,
         },
       },
@@ -82,8 +85,8 @@ const ProjectSlider = () => {
     <motion.div
       ref={ref}
       animate={controls}
-      initial={{ opacity: 0, y: 50 }} // Initial state: invisible and slightly moved down
-      transition={{ duration: 0.5 }} // Animation duration
+      initial={{ opacity: 0, y: 50 }}
+      transition={{ duration: 0.5 }}
       className="container"
     >
       <Slider {...settings}>
@@ -92,15 +95,15 @@ const ProjectSlider = () => {
             key={index}
             className="flex mt-10 md:px-10 lg:px-0 gap-5 w-full h-full"
             initial={{ opacity: 0 }}
-            animate={{ opacity: isInView ? 1 : 0 }} // Fade in for the whole slide
+            animate={{ opacity: isInView ? 1 : 1 }} // Ensure it stays visible after first animation
             transition={{ duration: 0.5 }}
           >
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 lg:justify-start justify-center items-center bg-fill">
               {/* Image with slide-in from left */}
               <motion.div
                 className="p-4 rounded-lg overflow-hidden lg:w-6/12 h-72 md:h-96 lg:h-[30rem] w-[20rem] md:w-[40rem] flex"
-                initial={{ x: -100 }} // Slide in from left
-                animate={isInView ? { x: 0 } : { x: -100 }} // Slide to original position
+                initial={{ x: -100 }}
+                animate={isInView ? { x: 0 } : { x: 0 }} // Ensure it stays in place after animation
                 transition={{ duration: 0.5 }}
               >
                 <div className="rounded-lg bg-white overflow-hidden">
@@ -112,12 +115,12 @@ const ProjectSlider = () => {
                 </div>
               </motion.div>
 
-              {/* Text section with slide-in from bottom */}
-              <div className="flex flex-col items-center lg:items-start lg:gap-64 justify-center just lg:w-[45rem]">
+              {/* Text section */}
+              <div className="flex flex-col items-center lg:items-start lg:gap-64 justify-center lg:w-[45rem]">
                 <motion.div
                   className="flex flex-col"
-                  initial={{ y: 50 }} // Slide in from bottom
-                  animate={isInView ? { y: 0 } : { y: 50 }} // Slide to original position
+                  initial={{ y: 50 }}
+                  animate={isInView ? { y: 0 } : { y: 0 }} // Ensure it stays in place
                   transition={{ duration: 0.5 }}
                 >
                   <p className="poppins-bold text-white text-center lg:text-start p-3 lg:p-0 lg:text-3xl text-2xl lg:mb-2">
@@ -135,11 +138,11 @@ const ProjectSlider = () => {
                             ? "bg-green-600 text-white"
                             : tech.toLowerCase() === "reactjs"
                             ? "bg-blue-600 text-white"
-                            : "bg-gray-500 text-white" // default case
+                            : "bg-gray-500 text-white"
                         }`}
-                        initial={{ opacity: 0 }} // Fade in
-                        animate={isInView ? { opacity: 1 } : { opacity: 0 }} // Full opacity
-                        transition={{ duration: 0.5, delay: techIndex * 0.2 }} // Sequential fade-in
+                        initial={{ opacity: 0 }}
+                        animate={isInView ? { opacity: 1 } : { opacity: 1 }} // Keep visible
+                        transition={{ duration: 0.5, delay: techIndex * 0.2 }}
                       >
                         {tech}
                       </motion.div>
@@ -147,15 +150,15 @@ const ProjectSlider = () => {
                   </div>
                 </motion.div>
 
-                {/* Button with slide-in from right */}
-                <motion.button
+                {/* Button */}
+                {/* <motion.button
                   className="px-10 py-3 bg-primary text-white quicksand-bold rounded-md"
-                  initial={{ x: 100 }} // Slide in from right
-                  animate={isInView ? { x: 0 } : { x: 100 }} // Slide to original position
+                  initial={{ x: 100 }}
+                  animate={isInView ? { x: 0 } : { x: 0 }} // Keep in place
                   transition={{ duration: 0.5 }}
                 >
                   VIEW PROJECT
-                </motion.button>
+                </motion.button> */}
               </div>
             </div>
           </motion.div>
