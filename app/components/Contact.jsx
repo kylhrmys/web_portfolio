@@ -73,7 +73,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="form-container p-5 rounded-md w-[30rem] bg-white">
+          <div className="form-container p-5 rounded-md w-[20rem] md:w-[40rem] bg-white">
             {alert && (
               <Alert
                 message={alert.message}
