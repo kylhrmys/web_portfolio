@@ -13,6 +13,34 @@ const Contact = () => {
   });
   const [submitStatus, setSubmitStatus] = useState("");
 
+  // const send = () => {
+  //   sendEmail();
+  // };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+    };
+
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+    alert(result.message);
+  };
+
   const handleScroll = () => {
     if (ref.current) {
       const rect = ref.current.getBoundingClientRect();
@@ -31,39 +59,6 @@ const Contact = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [controls]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitStatus("");
-
-    const { name, email, message } = formData;
-
-    try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, message }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      setSubmitStatus(data.message);
-      setFormData({ name: "", email: "", message: "" });
-    } catch (error) {
-      console.error("Error sending email:", error);
-      setSubmitStatus("Failed to send email.");
-    }
-  };
 
   return (
     <div
@@ -92,58 +87,51 @@ const Contact = () => {
             ref={ref}
             initial={{ opacity: 0, y: 100 }}
             animate={controls}
-            className="flex form-container p-5 rounded-md w-[21rem] md:w-[30rem] lg:w-[35rem]"
+            className="form-container p-5 rounded-md w-[30rem]"
           >
             <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-              <label
-                className="mb-1 text-white quicksand-regular"
-                htmlFor="name"
-              >
+              <label className="mb-1 text-white" htmlFor="name">
                 Name
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                placeholder="John Doe"
-                className="mb-3 p-2 rounded"
                 value={formData.name}
                 onChange={handleChange}
+                className="mb-3 p-2 rounded"
                 required
               />
-              <label
-                className="mb-1 text-white quicksand-regular"
-                htmlFor="email"
-              >
+
+              <label className="mb-1 text-white" htmlFor="email">
                 Email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="johndoe@mail.com"
-                className="mb-3 p-2 rounded"
                 value={formData.email}
                 onChange={handleChange}
+                className="mb-3 p-2 rounded"
                 required
               />
-              <label
-                className="mb-1 text-white quicksand-regular"
-                htmlFor="message"
-              >
+
+              <label className="mb-1 text-white" htmlFor="message">
                 Message
               </label>
               <textarea
                 id="message"
                 name="message"
-                placeholder="I’ve been hearing fantastic things about your work and would love to chat about a potential collaboration. Are you interested in teaming up on something exciting?"
-                className="mb-3 p-2 rounded h-40"
                 value={formData.message}
                 onChange={handleChange}
+                className="mb-3 p-2 rounded h-40"
                 required
               ></textarea>
 
-              <button className="mt-3 px-10 py-3 bg-white text-black quicksand-bold rounded-md">
+              <button
+                type="submit"
+                className="mt-3 px-10 py-3 bg-white text-black rounded-md"
+              >
                 SUBMIT
               </button>
               {submitStatus && (
