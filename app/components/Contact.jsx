@@ -5,9 +5,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
-  const controls = useAnimation();
-  const ref = useRef(null);
-  const [isInView, setIsInView] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -54,14 +51,6 @@ const Contact = () => {
     }
   };
 
-  useEffect(() => {
-    controls.start({ opacity: 0, y: 50 });
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [controls]);
-
   return (
     <div
       id="contact"
@@ -81,12 +70,7 @@ const Contact = () => {
             </div>
             <div className="flex justify-center lg:justify-start"></div>
           </div>
-          <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 100 }}
-            animate={controls}
-            className="form-container p-5 rounded-md w-[30rem]"
-          >
+          <div className="form-container p-5 rounded-md w-[30rem]">
             <form className="flex flex-col w-full" onSubmit={handleSubmit}>
               <label className="mb-1 text-white" htmlFor="name">
                 Name
@@ -136,7 +120,7 @@ const Contact = () => {
                 <p className="text-white mt-3">{submitStatus}</p>
               )}
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>
