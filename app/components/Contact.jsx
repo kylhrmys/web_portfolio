@@ -23,8 +23,6 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  toast.configure();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -44,12 +42,12 @@ const Contact = () => {
     const result = await res.json();
 
     if (result.success) {
-      toast.success("Message sent successfully!", {
+      toast.success("✅ Message sent successfully!", {
         position: "top-right",
         autoClose: 3000,
       });
     } else {
-      toast.error(`Error: ${result.message}`, {
+      toast.error(`❌ Error: ${result.message}`, {
         position: "top-right",
         autoClose: 3000,
       });
