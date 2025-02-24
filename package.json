@@ -11,6 +11,7 @@
   "dependencies": {
     "@babel/runtime": "^7.25.6",
     "@heroicons/react": "^2.1.5",
+    "antd": "^5.24.1",
     "framer-motion": "^11.9.0",
     "next": "14.2.13",
     "nodemailer": "^6.10.0",
